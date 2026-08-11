@@ -59,5 +59,10 @@ public class Member {
     }
 
     //check update tier based on points
-    private void checkUpda
+    private void checkUpdateTier(){
+        String newTier = calculateTier(this.loyaltyPoint);
+        if(!newTier.equals(this.tier)){
+            this.tier = newTier;
+        }
+    }
 }
