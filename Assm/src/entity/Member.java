@@ -57,4 +57,7 @@ public class Member {
         this.loyaltyPoint -= points;
         return true;
     }
+
+    //check update tier based on points
+    private void checkUpda
 }
