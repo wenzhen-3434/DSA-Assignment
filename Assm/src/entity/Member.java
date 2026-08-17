@@ -212,7 +212,7 @@ public class Member {
         return false;
     }
 
-     public void approveRedemptionRequest(String requestId) {
+    public void approveRedemptionRequest(String requestId) {
         for (int i = 0; i < redemptionHistory.size(); i++) {
             String record = redemptionHistory.get(i);
             if (record.contains(requestId) && record.contains("PENDING APPROVAL")) {
