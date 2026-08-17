@@ -14,7 +14,11 @@ public class LinkedList<T> implements LinkedListInterface<T> {
     public void add(T element){
         Node<T> newNode = new Node<>(element);
 
-        if()
+        if(head == null){
+            head = newNode;
+        }else{
+            
+        }
     }
 
     public class Node<T>{
