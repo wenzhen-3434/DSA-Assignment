@@ -75,7 +75,7 @@ public class Member {
 
     //tier progression
     private void updateTier() {
-        String oldTier = this.tier;
+       // String oldTier = this.tier;
 
         //tier thresholds based on lifetime points
         if(lifetimePoints >= 10000) {
