@@ -7,6 +7,7 @@ public class Guest {
     private String phoneNumber;
     private String email;
     private String icPassportNo;
+    private String membership;    //None, silver, gold, platinum, diamond
     
     public Guest(String guestID, String guestName,
              String gender, String phoneNumber,
@@ -18,6 +19,7 @@ public class Guest {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.icPassportNo = icPassportNo;
+        this.membership = "None";
     }
 
     public String getGuestID() {
@@ -66,6 +68,14 @@ public class Guest {
 
     public void setIcPassportNo(String icPassportNo) {
         this.icPassportNo = icPassportNo;
+    }
+
+    public String getMembership() {
+        return membership;
+    }
+
+    public void setMembership(String membership) {
+        this.membership = membership;
     }
 }
 
