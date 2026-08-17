@@ -3,7 +3,7 @@ package adt;
 public interface LinkedListInterface<T> {
     public void addFirst(T element);
     public void addLast(T element);
-    public void add(int index, T element);
+    public boolean add(int index, T element);
     public T removeFirst();
     public T removeLast();
     public T remove(int index);
