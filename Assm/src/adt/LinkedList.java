@@ -1,274 +1,174 @@
 package adt;
 
 public class LinkedList<T> implements LinkedListInterface<T> {
-    private Node<T> head;
-    private Node<T> tail;
-    private int size;
 
-    private static class Node<T> {
-        T data;
-        Node<T> next;
-        Node<T> prev;
-
-        Node(T data) {
-            this.data = data;
-            this.next = null;
-            this.prev = null;
-        }
-    }
+    private Node firstNode;
+    private int numberOfEntries;
 
     public LinkedList() {
-        head = null;
-        tail = null;
-        size = 0;
+        clear();
     }
 
-    //add
-    
     @Override
-    public void addFirst(T element) {
-        Node<T> newNode = new Node<>(element);
+    public final void clear() {
+        firstNode = null;
+        numberOfEntries = 0;
+    }
+
+    @Override
+    public boolean add(T newEntry) {
+        Node newNode = new Node(newEntry);
+
         if (isEmpty()) {
-            head = tail = newNode;
+            firstNode = newNode;
         } else {
-            newNode.next = head;
-            head.prev = newNode;
-            head = newNode;
+            Node currentNode = firstNode;
+            while (currentNode.next != null) {
+                currentNode = currentNode.next;
+            }
+            currentNode.next = newNode;
         }
-        size++;
-    }
 
-    @Override
-    public void addLast(T element) {
-        Node<T> newNode = new Node<>(element);
-        if (isEmpty()) {
-            head = tail = newNode;
-        } else {
-            tail.next = newNode;
-            newNode.prev = tail;
-            tail = newNode;
-        }
-        size++;
-    }
-
-    @Override
-    public boolean add(int index, T element) {
-        // Validate index
-        if (index < 0 || index > size) {
-            return false;
-        }
-        
-        // Add at beginning
-        if (index == 0) {
-            addFirst(element);
-            return true;
-        }
-        
-        // Add at end
-        if (index == size) {
-            addLast(element);
-            return true;
-        }
-        
-        // Add in middle
-        Node<T> current = getNode(index);
-        if (current == null) {
-            return false;
-        }
-        
-        Node<T> newNode = new Node<>(element);
-        newNode.prev = current.prev;
-        newNode.next = current;
-        current.prev.next = newNode;
-        current.prev = newNode;
-        size++;
+        numberOfEntries++;
         return true;
     }
 
-    //remove
-    
     @Override
-    public T removeFirst() {
-        if (isEmpty()) {
-            return null;
-        }
-        
-        T data = head.data;
-        if (size == 1) {
-            head = tail = null;
+    public boolean add(int newPosition, T newEntry) {
+        boolean isSuccessful = true;
+
+        if ((newPosition >= 1) && (newPosition <= numberOfEntries + 1)) {
+            Node newNode = new Node(newEntry);
+
+            if (isEmpty() || (newPosition == 1)) {
+                newNode.next = firstNode;
+                firstNode = newNode;
+            } else {
+                Node nodeBefore = firstNode;
+                for (int i = 1; i < newPosition - 1; ++i) {
+                    nodeBefore = nodeBefore.next;
+                }
+
+                newNode.next = nodeBefore.next;
+                nodeBefore.next = newNode;
+            }
+
+            numberOfEntries++;
         } else {
-            head = head.next;
-            head.prev = null;
+            isSuccessful = false;
         }
-        size--;
-        return data;
+
+        return isSuccessful;
     }
 
     @Override
-    public T removeLast() {
-        if (isEmpty()) {
-            return null;
+    public T remove(int givenPosition) {
+        T result = null;
+
+        if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
+            if (givenPosition == 1) {
+                result = firstNode.data;
+                firstNode = firstNode.next;
+            } else {
+                Node nodeBefore = firstNode;
+                for (int i = 1; i < givenPosition - 1; ++i) {
+                    nodeBefore = nodeBefore.next;
+                }
+                result = nodeBefore.next.data;
+                nodeBefore.next = nodeBefore.next.next;
+            }
+
+            numberOfEntries--;
         }
-        
-        T data = tail.data;
-        if (size == 1) {
-            head = tail = null;
+
+        return result;
+    }
+
+    @Override
+    public boolean replace(int givenPosition, T newEntry) {
+        boolean isSuccessful = true;
+
+        if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
+            Node currentNode = firstNode;
+            for (int i = 0; i < givenPosition - 1; ++i) {
+                currentNode = currentNode.next;
+            }
+            currentNode.data = newEntry;
         } else {
-            tail = tail.prev;
-            tail.next = null;
+            isSuccessful = false;
         }
-        size--;
-        return data;
+
+        return isSuccessful;
     }
 
     @Override
-    public T remove(int index) {
-        // Validate index
-        if (index < 0 || index >= size) {
-            return null;
-        }
-        
-        // Remove from beginning
-        if (index == 0) {
-            return removeFirst();
-        }
-        
-        // Remove from end
-        if (index == size - 1) {
-            return removeLast();
-        }
-        
-        // Remove from middle
-        Node<T> current = getNode(index);
-        if (current == null) {
-            return null;
-        }
-        
-        current.prev.next = current.next;
-        current.next.prev = current.prev;
-        size--;
-        return current.data;
-    }
+    public T getEntry(int givenPosition) {
+        T result = null;
 
-    //search
-    
-    @Override
-    public T get(int index) {
-        if (index < 0 || index >= size) {
-            return null;
+        if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
+            Node currentNode = firstNode;
+            for (int i = 0; i < givenPosition - 1; ++i) {
+                currentNode = currentNode.next;
+            }
+            result = currentNode.data;
         }
-        Node<T> node = getNode(index);
-        return node != null ? node.data : null;
+
+        return result;
     }
 
     @Override
-    public boolean contains(T element) {
-        Node<T> current = head;
-        while (current != null) {
-            if (current.data.equals(element)) {
-                return true;
+    public boolean contains(T anEntry) {
+        boolean found = false;
+        Node currentNode = firstNode;
+
+        while (!found && (currentNode != null)) {
+            if (anEntry.equals(currentNode.data)) {
+                found = true;
+            } else {
+                currentNode = currentNode.next;
             }
-            current = current.next;
         }
-        return false;
+        return found;
     }
 
     @Override
-    public int indexOf(T element) {
-        Node<T> current = head;
-        int index = 0;
-        while (current != null) {
-            if (current.data.equals(element)) {
-                return index;
-            }
-            current = current.next;
-            index++;
-        }
-        return -1;
-    }
-
-    //utility
-    
-    private Node<T> getNode(int index) {
-        if (index < 0 || index >= size) {
-            return null;
-        }
-        
-        // Traverse from head if closer
-        if (index < size / 2) {
-            Node<T> current = head;
-            for (int i = 0; i < index; i++) {
-                current = current.next;
-            }
-            return current;
-        } 
-        // Traverse from tail if closer
-        else {
-            Node<T> current = tail;
-            for (int i = size - 1; i > index; i--) {
-                current = current.prev;
-            }
-            return current;
-        }
+    public int numberOfEntries() {
+        return numberOfEntries;
     }
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return numberOfEntries == 0;
     }
 
     @Override
     public boolean isFull() {
-        return false; // LinkedList is dynamic, never full
-    }
-
-    @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public void clear() {
-        head = null;
-        tail = null;
-        size = 0;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public T[] toArray() {
-        if (size == 0) {
-            return (T[]) new Object[0];
-        }
-        
-        T[] array = (T[]) new Object[size];
-        Node<T> current = head;
-        int index = 0;
-        
-        while (current != null) {
-            array[index++] = current.data;
-            current = current.next;
-        }
-        return array;
+        return false;
     }
 
     @Override
     public String toString() {
-        if (isEmpty()) {
-            return "[]";
+        String outputStr = "";
+        Node currentNode = firstNode;
+        while (currentNode != null) {
+            outputStr += currentNode.data + "\n";
+            currentNode = currentNode.next;
         }
-        
-        StringBuilder sb = new StringBuilder("[");
-        Node<T> current = head;
-        
-        while (current != null) {
-            sb.append(current.data);
-            if (current.next != null) {
-                sb.append(", ");
-            }
-            current = current.next;
+        return outputStr;
+    }
+
+    private class Node {
+        private T data;
+        private Node next;
+
+        private Node(T data) {
+            this.data = data;
+            this.next = null;
         }
-        sb.append("]");
-        return sb.toString();
+
+        private Node(T data, Node next) {
+            this.data = data;
+            this.next = next;
+        }
     }
 }
