@@ -240,9 +240,13 @@ public class Member {
     public Guest getGuest() { 
         return guest; 
     }
-    public void setGuest(Guest guest) { this.guest = guest; }
+    public void setGuest(Guest guest) { 
+        this.guest = guest; 
+    }
     
-    public String getTier() { return tier; }
+    public String getTier() { 
+        return tier; 
+    }
     public void setTier(String tier) { 
         this.tier = tier; 
         if (guest != null) {
@@ -250,41 +254,89 @@ public class Member {
         }
     }
     
-    public int getPoints() { return points; }
-    public void setPoints(int points) { this.points = points; }
+    public int getPoints() { 
+        return points; 
+    }
+    public void setPoints(int points) { 
+        this.points = points; 
+    }
     
-    public int getLifetimePoints() { return lifetimePoints; }
-    public void setLifetimePoints(int lifetimePoints) { this.lifetimePoints = lifetimePoints; }
+    public int getLifetimePoints() { 
+        return lifetimePoints; 
+    }
+    public void setLifetimePoints(int lifetimePoints) { 
+        this.lifetimePoints = lifetimePoints; 
+    }
     
-    public LocalDate getJoinDate() { return joinDate; }
-    public void setJoinDate(LocalDate joinDate) { this.joinDate = joinDate; }
+    public LocalDate getJoinDate() { 
+        return joinDate; 
+    }
+    public void setJoinDate(LocalDate joinDate) { 
+        this.joinDate = joinDate; 
+    }
     
-    public LocalDate getPointsExpiryDate() { return pointsExpiryDate; }
-    public void setPointsExpiryDate(LocalDate pointsExpiryDate) { this.pointsExpiryDate = pointsExpiryDate; }
+    public LocalDate getPointsExpiryDate() { 
+        return pointsExpiryDate; 
+    }
+    public void setPointsExpiryDate(LocalDate pointsExpiryDate) { 
+        this.pointsExpiryDate = pointsExpiryDate; 
+    }
     
-    public LocalDate getLastActivityDate() { return lastActivityDate; }
-    public void setLastActivityDate(LocalDate lastActivityDate) { this.lastActivityDate = lastActivityDate; }
+    public LocalDate getLastActivityDate() { 
+        return lastActivityDate; 
+    }
+    public void setLastActivityDate(LocalDate lastActivityDate) { 
+        this.lastActivityDate = lastActivityDate; 
+    }
     
-    public List<String> getRedemptionHistory() { return redemptionHistory; }
-    public void setRedemptionHistory(List<String> redemptionHistory) { this.redemptionHistory = redemptionHistory; }
+    public List<String> getRedemptionHistory() { 
+        return redemptionHistory; 
+    }
+    public void setRedemptionHistory(List<String> redemptionHistory) { 
+        this.redemptionHistory = redemptionHistory; 
+    }
     
-    public List<String> getPromotionHistory() { return promotionHistory; }
-    public void setPromotionHistory(List<String> promotionHistory) { this.promotionHistory = promotionHistory; }
+    public List<String> getPromotionHistory() { 
+        return promotionHistory; 
+    }
+    public void setPromotionHistory(List<String> promotionHistory) { 
+        this.promotionHistory = promotionHistory; 
+    }
     
-    public int getStayCount() { return stayCount; }
-    public void setStayCount(int stayCount) { this.stayCount = stayCount; }
+    public int getStayCount() { 
+        return stayCount; 
+    }
+    public void setStayCount(int stayCount) { 
+        this.stayCount = stayCount; 
+    }
     
-    public double getTotalSpent() { return totalSpent; }
-    public void setTotalSpent(double totalSpent) { this.totalSpent = totalSpent; }
+    public double getTotalSpent() { 
+        return totalSpent; 
+    }
+    public void setTotalSpent(double totalSpent) { 
+        this.totalSpent = totalSpent; 
+    }
     
-    public String getPreferredRoomType() { return preferredRoomType; }
-    public void setPreferredRoomType(String preferredRoomType) { this.preferredRoomType = preferredRoomType; }
+    public String getPreferredRoomType() { 
+        return preferredRoomType; 
+    }
+    public void setPreferredRoomType(String preferredRoomType) { 
+        this.preferredRoomType = preferredRoomType; 
+    }
     
-    public List<String> getPreferences() { return preferences; }
-    public void setPreferences(List<String> preferences) { this.preferences = preferences; }
+    public List<String> getPreferences() { 
+        return preferences; 
+    }
+    public void setPreferences(List<String> preferences) { 
+        this.preferences = preferences; 
+    }
     
-    public boolean isActive() { return isActive; }
-    public void setActive(boolean active) { isActive = active; }
+    public boolean isActive() { 
+        return isActive; 
+    }
+    public void setActive(boolean active) { 
+        isActive = active; 
+    }
 
     @Override
     public String toString() {

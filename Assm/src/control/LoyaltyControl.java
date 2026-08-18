@@ -9,20 +9,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * LoyaltyController.java - Controls all loyalty program operations
- * Members MUST be registered using the registerMember() method.
- */
-public class LoyaltyController {
+public class LoyaltyControl {
     private LinkedListInterface<Member> members;
     private LinkedListInterface<Notification> notifications;
 
-    public LoyaltyController() {
+    public LoyaltyControl() {
         this.members = new LinkedList<>();
         this.notifications = new LinkedList<>();
     }
 
-    // ========== REGISTRATION ==========
+    //member registration
 
     public Member registerMember(String guestName, String gender, String phone, String email, String icPassport, String preferredRoomType) {
         if (guestName == null || guestName.isEmpty()) {
@@ -94,7 +90,7 @@ public class LoyaltyController {
         return member;
     }
 
-    // ========== FIND METHODS ==========
+    //search member
 
     public Member findMember(String memberId) {
         if (memberId == null) return null;
@@ -136,7 +132,7 @@ public class LoyaltyController {
         return null;
     }
 
-    // ========== MEMBER MANAGEMENT ==========
+    //member manage
 
     public List<Member> getAllMembers() {
         List<Member> result = new ArrayList<>();
@@ -164,7 +160,7 @@ public class LoyaltyController {
         return members.numberOfEntries();
     }
 
-    // ========== POINTS MANAGEMENT ==========
+    //points manage
 
     public boolean addPoints(String memberId, int points) {
         Member member = findMember(memberId);
@@ -221,7 +217,7 @@ public class LoyaltyController {
         return true;
     }
 
-    // ========== REDEMPTION ==========
+    //redemption
 
     public boolean redeemPoints(String memberId, int points, String redemptionItem) {
         Member member = findMember(memberId);
@@ -271,7 +267,7 @@ public class LoyaltyController {
         }
     }
 
-    // ========== TIER MANAGEMENT ==========
+    //tier
 
     public boolean upgradeMemberTier(String memberId) {
         Member member = findMember(memberId);
@@ -301,7 +297,7 @@ public class LoyaltyController {
         return "Member not found.";
     }
 
-    // ========== NOTIFICATIONS ==========
+    // notification
 
     private void sendWelcomeNotification(Member member) {
         String welcomeMessage = String.format(
@@ -415,7 +411,7 @@ public class LoyaltyController {
         }
     }
 
-    // ========== EXPIRY CHECK ==========
+    //expiry check
 
     public void checkExpiringPoints() {
         System.out.println("\n╔══════════════════════════════════════╗");
@@ -468,7 +464,7 @@ public class LoyaltyController {
         notifications.add(expiryNotif);
     }
 
-    // ========== PROMOTIONS ==========
+    //promotions
 
     public List<String> getMemberPromotions(String memberId) {
         Member member = findMember(memberId);
@@ -502,7 +498,7 @@ public class LoyaltyController {
         System.out.println("✅ Bulk promotion sent to " + sentCount + " members.");
     }
 
-    // ========== NOTIFICATION MANAGEMENT ==========
+    //notification manage
 
     public List<Notification> getNotificationsForMember(String memberId) {
         List<Notification> memberNotifs = new ArrayList<>();
@@ -539,7 +535,7 @@ public class LoyaltyController {
         return getUnreadNotifications(memberId).size();
     }
 
-    // ========== REPORTS ==========
+    //reports
 
     public void generateMemberProfileReport(String memberId) {
         Member member = findMember(memberId);
